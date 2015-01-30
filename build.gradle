@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://repo.spring.io/libs-release" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.1.RELEASE")
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'spring-boot-and-spock'
+    version =  '0.1.0'
+}
+
+project.ext {
+    groovyVersion = "2.4.0"
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    runtime "org.hsqldb:hsqldb"
+
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.springframework.boot:spring-boot-starter-jetty"
+
+    // Tests
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    testCompile "org.spockframework:spock-spring"
+    testCompile "junit:junit"
+
+    testCompile "com.athaydes:spock-reports:1.2.3"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.1'
+}
